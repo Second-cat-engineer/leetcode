@@ -14,7 +14,7 @@ function containsDuplicate($nums) {
     $hash = [];
 
     foreach ($nums as $num) {
-        if ($hash[$num]) {
+        if (array_key_exists($num, $hash)) {
             return true;
         }
         $hash[$num] = true;
@@ -22,3 +22,6 @@ function containsDuplicate($nums) {
 
     return false;
 }
+
+$existDuplicate = containsDuplicate([1,2,3,3]);
+var_dump($existDuplicate);
