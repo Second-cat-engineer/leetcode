@@ -20,15 +20,17 @@
  */
 function twoSum(array $nums, int $target): array
 {
-    foreach ($nums as $keyOne => $numOne) {
-        foreach ($nums as $keyTwo => $numTwo) {
-            if ($keyOne === $keyTwo) {
-                continue;
-            }
+    $count = count($nums);
+
+    for ($i = 0; $i < $count; $i++) {
+        $numOne = $nums[$i];
+
+        for ($j = $i + 1; $j < $count; $j++) {
+            $numTwo = $nums[$j];
 
             $sum = $numOne + $numTwo;
             if ($sum === $target) {
-                return [$keyOne, $keyTwo];
+                return [$i, $j];
             }
         }
     }
@@ -36,5 +38,5 @@ function twoSum(array $nums, int $target): array
     return [];
 }
 
-$res = twoSum([2,11,15,3,6,2,2,4,5,5,5,5,7], 9);
+$res = twoSum([2,11,15,3,7], 9);
 var_dump($res);
