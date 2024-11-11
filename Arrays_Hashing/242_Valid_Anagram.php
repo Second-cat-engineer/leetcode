@@ -11,27 +11,34 @@ function isAnagram($s, $t) {
         return false;
     }
 
-    $sChars = [];
-    $tChars = [];
+//    $sChars = [];
+//    $tChars = [];
+
+    $result = 0;
 
     for ($i = 0; $i < strlen($s); $i++) {
         $sChar = $s[$i];
-        if (array_key_exists($sChar, $sChars)) {
-            $sChars[$sChar] += 1;
-        } else {
-            $sChars[$sChar] = 1;
-        }
-
         $tChar = $t[$i];
-        if (array_key_exists($tChar, $tChars)) {
-            $tChars[$tChar] += 1;
-        } else {
-            $tChars[$tChar] = 1;
-        }
+
+        $result += ord($sChar);
+        $result -= ord($tChar);
+
+//        if (array_key_exists($sChar, $sChars)) {
+//            $sChars[$sChar] += 1;
+//        } else {
+//            $sChars[$sChar] = 1;
+//        }
+//
+//        if (array_key_exists($tChar, $tChars)) {
+//            $tChars[$tChar] += 1;
+//        } else {
+//            $tChars[$tChar] = 1;
+//        }
     }
 
-    return $sChars == $tChars;
+//    return $sChars == $tChars;
+    return $result === 0;
 }
 
-$res = isAnagram("racecar", "carrace");
+$res = isAnagram("racfecar", "carfrace");
 var_dump($res);
