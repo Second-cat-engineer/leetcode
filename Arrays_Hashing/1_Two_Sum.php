@@ -20,20 +20,29 @@
  */
 function twoSum(array $nums, int $target): array
 {
-    $count = count($nums);
-
-    for ($i = 0; $i < $count; $i++) {
-        $numOne = $nums[$i];
-
-        for ($j = $i + 1; $j < $count; $j++) {
-            $numTwo = $nums[$j];
-
-            $sum = $numOne + $numTwo;
-            if ($sum === $target) {
-                return [$i, $j];
-            }
+    $hash = [];
+    foreach ($nums as $key => $num) {
+        $diff = $target - $num;
+        if (array_key_exists($diff, $hash)) {
+            return [$hash[$diff], $key];
         }
+
+        $hash[$diff] = $key;
     }
+
+//    $count = count($nums);
+//    for ($i = 0; $i < $count; $i++) {
+//        $numOne = $nums[$i];
+//
+//        for ($j = $i + 1; $j < $count; $j++) {
+//            $numTwo = $nums[$j];
+//
+//            $sum = $numOne + $numTwo;
+//            if ($sum === $target) {
+//                return [$i, $j];
+//            }
+//        }
+//    }
 
     return [];
 }
