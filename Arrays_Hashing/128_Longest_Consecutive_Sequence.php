@@ -8,6 +8,8 @@
 //Output: 4
 //Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
 
+// Временная сложность: O(n).
+
 /**
  * @param Integer[] $nums
  * @return Integer
@@ -15,30 +17,24 @@
 function longestConsecutive(array $nums): int
 {
     $hash = [];
+    foreach ($nums as $num) {
+        $hash[$num] = 1;
+    }
 
     $maxSequence = 0;
     foreach ($nums as $num) {
-        if (!array_key_exists($num, $hash)) {
-            $hash[$num] = 0;
+        $less = $num - 1;
+        // чтобы рассмотреть только начало последовательностей.
+        if (array_key_exists($less, $hash)) {
+            continue;
         }
 
         $sequenceLength = 1;
-        $less = $num - 1;
-        $existLess = array_key_exists($less, $hash);
-        while ($existLess) {
-            $sequenceLength++;
-
-            --$less;
-            $existLess = array_key_exists($less, $hash);
-        }
 
         $most = $num + 1;
-        $existMost = array_key_exists($most, $hash);
-        while ($existMost) {
+        while (array_key_exists($most, $hash)) {
             $sequenceLength++;
-
-            ++$most;
-            $existMost = array_key_exists($most, $hash);
+            $most++;
         }
 
         if ($sequenceLength > $maxSequence) {
@@ -49,8 +45,8 @@ function longestConsecutive(array $nums): int
     return $maxSequence;
 }
 
-//$seq = [0,3,7,2,5,8,4,6,0,1];
-$seq = [100,4,200,1,3,2];
+$seq = [0,3,7,2,5,8,4,6,0,1];
+//$seq = [100,4,200,1,3,2];
 
 $res = longestConsecutive($seq);
 var_dump($res);
