@@ -15,39 +15,29 @@
  */
 function isValid(string $s): bool
 {
-    $availableChars = ['(', ')', '{', '}', '[', ']'];
-
-    $chars = str_split($s); //разбить на символы
-    $sUniqueElemsCount = count(array_unique($chars));
-    if ($sUniqueElemsCount > count($availableChars)) {
-        return false;
-    }
-
-    $closedChars = [')', '}', ']'];
-    $openedChars = ['(', '{', '['];
-    $oppositions = [
+    $matching = [
         '(' => ')',
         '{' => '}',
         '[' => ']'
     ];
 
     $stack = [];
-    foreach ($chars as $char) {
-        if (in_array($char, $openedChars)) {
+    foreach (str_split($s) as $char) {
+        if (array_key_exists($char, $matching)) {
             $stack[] = $char;
-            continue;
-        }
-        if (in_array($char, $closedChars)) {
+
+        } else if (in_array($char, $matching, true)) {
             if (empty($stack)) {
                 return false;
             }
-            $lastKey = array_key_last($stack);
-            $lastElem = $stack[$lastKey];
-            if (in_array($lastElem, $openedChars) && $oppositions[$lastElem] === $char) {
-                unset($stack[$lastKey]);
-            } else {
+
+            $lastElem  = array_pop($stack);
+            if (!array_key_exists($lastElem, $matching) || $matching[$lastElem] !== $char ) {
                 return false;
             }
+
+        } else {
+            return false;
         }
     }
 
