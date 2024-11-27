@@ -20,9 +20,11 @@ function twoSum(array $numbers, int $target): array
 
     while ($left < $right) {
         $sum = $numbers[$left] + $numbers[$right];
-        if ($sum == $target) {
+        if ($sum === $target) {
             return [$left + 1, $right + 1];
-        } elseif ($sum > $target) {
+        }
+
+        if ($sum > $target) {
             $right--;
         } else {
             $left++;
