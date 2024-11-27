@@ -17,23 +17,25 @@
  */
 function isPalindrome(string $s): bool
 {
-    $result = [];
-
     $string = '';
     for ($i = 0; $i < strlen($s); $i++) {
         $validChar = isAlphanumericAscii($s[$i]);
         if ($validChar) {
             $string .= $validChar;
-            $result[] = $validChar;
         }
     }
 
-    $string2 = '';
-    for ($i = count($result) - 1; $i >= 0; $i--) {
-        $string2 .= $result[$i];
+    $left = 0;
+    $right = strlen($string) - 1;
+    while ($left <= $right) {
+        if ($string[$left] !== $string[$right]) {
+            return false;
+        }
+        $left++;
+        $right--;
     }
 
-    return $string === $string2;
+    return true;
 }
 
 function isAlphanumericAscii($char): mixed
@@ -53,5 +55,5 @@ function isAlphanumericAscii($char): mixed
     return null;
 }
 
-$result = isPalindrome("Hello12 World!");
+$result = isPalindrome("Hello olleH");
 var_dump($result);
